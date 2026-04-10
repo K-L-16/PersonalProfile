@@ -320,13 +320,13 @@ const Footer = () => {
           Whether you're a recruiter, engineer, or founder, I'd love to chat about systems architecture, backend development, or potential collaborations.
         </p>
         <div className="flex justify-center gap-6 mb-16">
-          <a href="mailto: k376liu@uwaterloo.ca" className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors" aria-label="Email">
+          <a href="mailto:k376liu@uwaterloo.ca" className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors" aria-label="Email">
             <Mail size={24} />
           </a>
           <a href="https://github.com/K-L-16" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors" aria-label="GitHub">
             <Github size={24} />
           </a>
-          <a href="www.linkedin.com/in/kevin-liu-0516-
+          <a href="https://www.linkedin.com/in/kevin-liu-0516-
 " target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors" aria-label="LinkedIn">
             <Linkedin size={24} />
           </a>
