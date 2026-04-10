@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import { motion } from 'motion/react';
-import { Moon, Sun, Github, Linkedin, Mail, ExternalLink, Code2, Database, Server, Layout, Terminal } from 'lucide-react';
+import { Moon, Sun, Github, Linkedin, Mail, ExternalLink, Code2, Database, Server, Layout, Terminal, Copy, Check } from 'lucide-react';
 
 // --- Theme Context ---
 type Theme = 'dark' | 'light';
@@ -306,6 +306,27 @@ const Projects = () => {
 };
 
 const Footer = () => {
+  const email = "k376liu[at]uwaterloo[dot]ca";
+  const [showEmailCard, setShowEmailCard] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textArea = document.createElement('textarea');
+      textArea.value = email;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
   return (
     <footer id="contact" className="py-24 px-6 max-w-5xl mx-auto text-center">
       <motion.div
@@ -319,10 +340,16 @@ const Footer = () => {
           I'm currently looking for software engineering internship opportunities. 
           Whether you're a recruiter, engineer, or founder, I'd love to chat about systems architecture, backend development, or potential collaborations.
         </p>
-        <div className="flex justify-center gap-6 mb-16">
-          <a href="mailto:k376liu@uwaterloo.ca" className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors" aria-label="Email">
+        <div className="flex justify-center gap-6 mb-8">
+          <button
+            type="button"
+            onClick={() => setShowEmailCard((prev) => !prev)}
+            className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors"
+            aria-label="Show email options"
+            aria-expanded={showEmailCard}
+          >
             <Mail size={24} />
-          </a>
+          </button>
           <a href="https://github.com/K-L-16" target="_blank" rel="noopener noreferrer" className="p-3 rounded-full bg-[var(--card)] border border-[var(--border)] hover:bg-[var(--border)] transition-colors" aria-label="GitHub">
             <Github size={24} />
           </a>
@@ -331,6 +358,26 @@ const Footer = () => {
             <Linkedin size={24} />
           </a>
         </div>
+        {showEmailCard && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 mx-auto max-w-md p-4 rounded-xl border border-[var(--border)] bg-[var(--card)]"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <p className="font-mono text-sm text-[var(--fg)] break-all">{email}</p>
+              <button
+                type="button"
+                onClick={handleCopyEmail}
+                className="p-1.5 rounded-md border border-[var(--border)] hover:bg-[var(--border)] transition-colors"
+                aria-label={copied ? "Email copied" : "Copy email"}
+                title={copied ? "Copied" : "Copy email"}
+              >
+                {copied ? <Check size={16} /> : <Copy size={16} />}
+              </button>
+            </div>
+          </motion.div>
+        )}
         <p className="font-mono text-sm text-[var(--muted)]">
           &copy; {new Date().getFullYear()} Kevin Liu. All rights reserved.
         </p>
